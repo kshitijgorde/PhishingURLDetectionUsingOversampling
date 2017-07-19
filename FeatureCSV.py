@@ -175,7 +175,7 @@ class FeaturesCSV():
         return kld
 
 
-    def createCSVFile(self,columns,originalHeader):
+    def createCSVFile(self,columns,originalHeader,threshold):
         'Creates a CSV File denoting features of the URL'
         dir_name = os.path.dirname(os.path.realpath(__file__))
         with open(dir_name+'/URLFeatures.csv', 'wb') as featureCSVFile:
@@ -198,7 +198,7 @@ class FeaturesCSV():
                 features.append(self.getKLDivergence(everyURL))
 
                 #print columns[originalHeader[0]][count]
-                if int(columns[originalHeader[1]][count]) >= 10:
+                if int(columns[originalHeader[1]][count]) >= threshold:
                     #then phishy
                     count+=1
                     #print 'Phishy ratio'

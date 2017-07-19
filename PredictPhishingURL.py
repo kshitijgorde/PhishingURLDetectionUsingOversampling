@@ -10,12 +10,6 @@ from MyRBM import MyRBM
 from MyAdaBoost import MyAdaBoostClassifier
 from Resampling import Resampling
 from collections import OrderedDict
-def getLabelTerm(URldict, feature):
-	#given a word vector, find it's corresponding CVE_Label
-	label = [key for key, value in URldict.iteritems() if (value == feature).all()][0]
-	return label
-
-
 
 datasetObject = LoadCSVDataset()
 cleanedDataset,header = datasetObject.loadDataset()
@@ -23,7 +17,8 @@ cleanedDataset,header = datasetObject.loadDataset()
 #Here I've obtained the cleaned Dataset with N/A removed.
 #Below I've created methods to create a csv file with all the relevant String features.
 featureObject = FeaturesCSV()
-featureObject.createCSVFile(cleanedDataset,header)
+threshold = 10
+featureObject.createCSVFile(cleanedDataset,header,threshold)
 features = LoadFeatures()
 featureMatrix,phishingLabel = features.loadFeatures()
 
@@ -55,11 +50,26 @@ print len(phishingLabel)
 # #Once obtained Feature matrix, make a call to Classifiers
 #    #17909
 decisionTree = MyDecisionTreeClassifier()
-decisionTree.decisionTreeF1(featureMatrix,phishingLabel)
-# #
-# svm = MySupportVector()
-# svm.supportVectorF1(featureMatrix,phishingLabel)
-# #
+decisionTree.decisionTreeSMOTE(featureMatrix,phishingLabel)
+
+decisionTree2 = MyDecisionTreeClassifier()
+decisionTree2.decisionTreebSMOTE1(featureMatrix,phishingLabel)
+
+decisionTree3 = MyDecisionTreeClassifier()
+decisionTree3.decisionTreebSMOTE2(featureMatrix,phishingLabel)
+
+decisionTree4 = MyDecisionTreeClassifier()
+decisionTree4.decisionTreeSVM_SMOTE(featureMatrix,phishingLabel)
+
+decisionTree5 = MyDecisionTreeClassifier()
+decisionTree5.decisionTreeADASYN(featureMatrix,phishingLabel)
+
+decisionTree6 = MyDecisionTreeClassifier()
+decisionTree6.decisionTreeRMR(featureMatrix,phishingLabel)
+
+decisionTree7 =  MyDecisionTreeClassifier()
+decisionTree7.decisionTreeNoOversampling(featureMatrix,phishingLabel)
+
 # rf = MyRandomForestClassifier()
 # rf.randomForestF1(featureMatrix,phishingLabel)
 # #
@@ -69,3 +79,5 @@ decisionTree.decisionTreeF1(featureMatrix,phishingLabel)
 #rbm = MyRBM()
 #rbm.rbmClassifyF1(featureMatrix,phishingLabel)
 
+# svm = MySupportVector()
+# svm.supportVectorF1(featureMatrix,phishingLabel)
