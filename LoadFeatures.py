@@ -29,18 +29,11 @@ class LoadFeatures():
 
             featureMatrix.append(term_matrix)
 
-        #17115 duplicate
-        for i in range(0,len(urlList)):
-            UrlDict[urlList[i]] = featureMatrix[i]
 
-
-        if len(UrlDict)!= len(urlList):
-            print 'Duplicate values in URL found. Please clean dataset and re-ren'
-            exit(111)
 
 
         phishingLabel = [int(x) for x in columns[header[12]]]
-        return UrlDict,phishingLabel
+        return featureMatrix,phishingLabel
 
     def loadPositiveFeatures(self):
         header = []
@@ -65,3 +58,26 @@ class LoadFeatures():
 
         return urlList
         #return featureMatrix,phishingLabel
+
+    def loadNegativeFeatures(self):
+        header = []
+        columns = defaultdict(list)
+        dir_name = os.path.dirname(os.path.realpath(__file__))
+        csvFile = open(dir_name + '/URLFeatures.csv', 'r')
+        reader = csv.reader(csvFile)
+        header = next(reader)
+        with open(dir_name + '/URLFeatures.csv') as f:
+            reader = csv.DictReader(f)  # read rows into a dictionary format
+            for row in reader:  # read a row as {column1: value1, column2: value2,...}
+                for (k, v) in row.items():
+                    # go over each column name and value
+                    columns[k].append(v)  # append the value into the appropriate list
+
+        urlList = []  # columns[header[0]]
+        phishingLabel = [int(x) for x in columns[header[12]]]
+
+        for i in range(0, len(phishingLabel)):
+            if phishingLabel[i] == '0' or phishingLabel[i] == 0:
+                urlList.append(columns[header[0]][i])
+
+        return urlList

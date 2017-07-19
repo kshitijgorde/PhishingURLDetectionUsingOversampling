@@ -196,7 +196,9 @@ class FeaturesCSV():
                 features.append(self.digitsInDomain(everyURL))
                 features.append(self.getEntropy(everyURL))
                 features.append(self.getKLDivergence(everyURL))
-                if int(columns[originalHeader[1]][count]) >= 5:
+
+                #print columns[originalHeader[0]][count]
+                if int(columns[originalHeader[1]][count]) >= 10:
                     #then phishy
                     count+=1
                     #print 'Phishy ratio'

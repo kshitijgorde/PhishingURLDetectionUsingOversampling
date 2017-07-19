@@ -25,21 +25,25 @@ cleanedDataset,header = datasetObject.loadDataset()
 featureObject = FeaturesCSV()
 featureObject.createCSVFile(cleanedDataset,header)
 features = LoadFeatures()
-UrlDict,phishingLabel = features.loadFeatures()
+featureMatrix,phishingLabel = features.loadFeatures()
 
 phishyURLs = features.loadPositiveFeatures()
+nonPhishyURLs = features.loadNegativeFeatures()
 
-print type(phishingLabel[0])
+
 
 print 'Phishy:' + str(phishingLabel.count(1))
 print 'Non Phishy:' + str(phishingLabel.count(0))
 pre = GanPreProcess()
 
-#Features are not unique
-for everyURL in phishyURLs:
-    pre.preProcessURLs(everyURL)
+if len(phishyURLs) > len(nonPhishyURLs):
+	for everyURL in nonPhishyURLs:
+		pre.preProcessURLs(everyURL)
+else:
+	for everyURL in phishyURLs:
+		pre.preProcessURLs(everyURL)
 
-featureMatrix = numpy.array(UrlDict.values(),dtype='double')
+featureMatrix = numpy.array(featureMatrix,dtype='double')
 phishingLabel = numpy.array(phishingLabel,dtype='double')
 
 
