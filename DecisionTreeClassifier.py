@@ -13,7 +13,7 @@ class MyDecisionTreeClassifier():
     def decisionTreeSMOTE(self,featureMatrix,phishingURLLabel):
         re = Resampling()
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        predictionResult = open(dir_name+'/DecisionTreeResults.txt','a+')
+        predictionResult = open(dir_name+'/DecisionTreeResultsSmote.txt','a+')
         predictionResult.truncate()
         accuracy_matrix = []
         try:
@@ -60,7 +60,7 @@ class MyDecisionTreeClassifier():
         except Exception as e:
             predictionResult.write(str(e))
 
-        predictionResult.write("Decision Tree Classification Completed with Avg. Score: " + str(np.mean(accuracy_matrix)))
+        predictionResult.write("Decision Tree with SMOTE Classification Completed with Avg. Score: " + str(np.mean(accuracy_matrix)))
         print 'Decision Tree Classification Completed with Avg. Score: ' + str(np.mean(accuracy_matrix))
 
     #------------- Decision Tree Classifier with Random Minority Over-sampling with Replacement
@@ -68,7 +68,7 @@ class MyDecisionTreeClassifier():
     def decisionTreeRMR(self,featureMatrix,phishingURLLabel):
         re = Resampling()
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        predictionResult = open(dir_name+'/DecisionTreeResults.txt','a+')
+        predictionResult = open(dir_name+'/DecisionTreeResultsRMR.txt','a+')
         predictionResult.truncate()
         accuracy_matrix = []
         try:
@@ -115,7 +115,7 @@ class MyDecisionTreeClassifier():
         except Exception as e:
             predictionResult.write(str(e))
 
-        predictionResult.write("Decision Tree Classification Completed with Avg. Score: " + str(np.mean(accuracy_matrix)))
+        predictionResult.write("Decision Tree with RMR Classification Completed with Avg. Score: " + str(np.mean(accuracy_matrix)))
         print 'Decision Tree Classification Completed with Avg. Score: ' + str(np.mean(accuracy_matrix))
 
     #---------- Decision Tree Classifier with Borderline SMOTE-1 ----------------------------
@@ -123,7 +123,7 @@ class MyDecisionTreeClassifier():
     def decisionTreebSMOTE1(self,featureMatrix,phishingURLLabel):
         re = Resampling()
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        predictionResult = open(dir_name+'/DecisionTreeResults.txt','a+')
+        predictionResult = open(dir_name+'/DecisionTreeResultsSmoteB1.txt','a+')
         predictionResult.truncate()
         accuracy_matrix = []
         try:
@@ -170,7 +170,7 @@ class MyDecisionTreeClassifier():
         except Exception as e:
             predictionResult.write(str(e))
 
-        predictionResult.write("Decision Tree Classification Completed with Avg. Score: " + str(np.mean(accuracy_matrix)))
+        predictionResult.write("Decision Tree Borderline-1 Smote Classification Completed with Avg. Score: " + str(np.mean(accuracy_matrix)))
         print 'Decision Tree Classification Completed with Avg. Score: ' + str(np.mean(accuracy_matrix))
 
     # ------------------------- Decision Tree Classifier with Borderline SMOTE 2 ---------------------------
@@ -178,7 +178,7 @@ class MyDecisionTreeClassifier():
     def decisionTreebSMOTE2(self,featureMatrix,phishingURLLabel):
         re = Resampling()
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        predictionResult = open(dir_name+'/DecisionTreeResults.txt','a+')
+        predictionResult = open(dir_name+'/DecisionTreeResultsSmoteb2.txt','a+')
         predictionResult.truncate()
         accuracy_matrix = []
         try:
@@ -225,7 +225,7 @@ class MyDecisionTreeClassifier():
         except Exception as e:
             predictionResult.write(str(e))
 
-        predictionResult.write("Decision Tree Classification Completed with Avg. Score: " + str(np.mean(accuracy_matrix)))
+        predictionResult.write("Decision Tree Classification b2 SmOTE Completed with Avg. Score: " + str(np.mean(accuracy_matrix)))
         print 'Decision Tree Classification Completed with Avg. Score: ' + str(np.mean(accuracy_matrix))
 
     # Decision Tree Classifier for Support Vector Machine SMOTE Technique
@@ -233,7 +233,7 @@ class MyDecisionTreeClassifier():
     def decisionTreeSVM_SMOTE(self,featureMatrix,phishingURLLabel):
         re = Resampling()
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        predictionResult = open(dir_name+'/DecisionTreeResults.txt','a+')
+        predictionResult = open(dir_name+'/DecisionTreeResultsSVMSmote.txt','a+')
         predictionResult.truncate()
         accuracy_matrix = []
         try:
@@ -280,7 +280,7 @@ class MyDecisionTreeClassifier():
         except Exception as e:
             predictionResult.write(str(e))
 
-        predictionResult.write("Decision Tree Classification Completed with Avg. Score: " + str(np.mean(accuracy_matrix)))
+        predictionResult.write("Decision Tree Classification SVM Smote Completed with Avg. Score: " + str(np.mean(accuracy_matrix)))
         print 'Decision Tree Classification Completed with Avg. Score: ' + str(np.mean(accuracy_matrix))
 
     # --------------- Decision Tree Classifier with ADASYN (Adaptive Synthetic Sampling Approach for imbalanced Learning---
@@ -288,7 +288,7 @@ class MyDecisionTreeClassifier():
     def decisionTreeADASYN(self,featureMatrix,phishingURLLabel):
         re = Resampling()
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        predictionResult = open(dir_name+'/DecisionTreeResults.txt','a+')
+        predictionResult = open(dir_name+'/DecisionTreeResultsADASYN.txt','a+')
         predictionResult.truncate()
         accuracy_matrix = []
         try:
@@ -335,7 +335,7 @@ class MyDecisionTreeClassifier():
         except Exception as e:
             predictionResult.write(str(e))
 
-        predictionResult.write("Decision Tree Classification Completed with Avg. Score: " + str(np.mean(accuracy_matrix)))
+        predictionResult.write("Decision Tree Classification ADASYN Completed with Avg. Score: " + str(np.mean(accuracy_matrix)))
         print 'Decision Tree Classification Completed with Avg. Score: ' + str(np.mean(accuracy_matrix))
 
     # Decision Tree Classifier without any Oversampling Technique
@@ -343,7 +343,7 @@ class MyDecisionTreeClassifier():
     def decisionTreeNoOversampling(self,featureMatrix,phishingURLLabel):
         re = Resampling()
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        predictionResult = open(dir_name+'/DecisionTreeResults.txt','a+')
+        predictionResult = open(dir_name+'/DecisionTreeResultsNoOversampling.txt','a+')
         predictionResult.truncate()
         accuracy_matrix = []
         try:
@@ -382,5 +382,5 @@ class MyDecisionTreeClassifier():
         except Exception as e:
             predictionResult.write(str(e))
 
-        predictionResult.write("Decision Tree Classification Completed with Avg. Score: " + str(np.mean(accuracy_matrix)))
+        predictionResult.write("Decision Tree Classification without Oversampling Completed with Avg. Score: " + str(np.mean(accuracy_matrix)))
         print 'Decision Tree Classification Completed with Avg. Score: ' + str(np.mean(accuracy_matrix))

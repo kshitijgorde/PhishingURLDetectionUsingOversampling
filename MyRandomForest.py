@@ -4,11 +4,12 @@ from sklearn.metrics import f1_score,accuracy_score
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 import collections
+from Resampling import Resampling
 class MyRandomForestClassifier():
     'Implelments Random Forest Classifier'
-    def randomForestF1(self,featureMatrix,phishingURLLabel):
+    def randomForestNoOversampling(self,featureMatrix,phishingURLLabel):
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        predictionResult = open(dir_name + '/RandomForestResults.txt', 'a+')
+        predictionResult = open(dir_name + '/RandomForestResultsNoOversampling.txt', 'a+')
         predictionResult.truncate()
         accuracy_matrix = []
         try:
@@ -17,10 +18,6 @@ class MyRandomForestClassifier():
             parameters_RandomForest = {'n_estimators': [10, 100, 1000], 'criterion': ('gini', 'entropy'),
                                        'oob_score': (True, False), 'warm_start': (True, False)}
             estimator = RandomForestClassifier()
-            # totalSamples = len(Label_Train)
-            # positiveCount = int(Label_Train.count('1'))  # should be 65% of total
-            # predictionResult.write("Percentage of positive samples in training phase: %.2f " % (positiveCount / float(totalSamples)))
-
             clf = GridSearchCV(estimator, parameters_RandomForest, n_jobs=8)
             clf.fit(URL_Train, Label_Train)
             result = clf.predict(URL_Test)
@@ -35,4 +32,190 @@ class MyRandomForestClassifier():
         except Exception as e:
             predictionResult.write(str(e))
 
-        predictionResult.write("Random Forest Classification Completed with Avg. Score: " + str(np.mean(accuracy_matrix)))
+        predictionResult.write("Random Forest Classification without Oversampling Completed with Avg. Score: " + str(np.mean(accuracy_matrix)))
+
+    # ---- Random Forest Classifier with SMOTE ---------------------------------------
+
+    def randomForestSMOTE(self,featureMatrix,phishingURLLabel):
+        dir_name = os.path.dirname(os.path.realpath(__file__))
+        predictionResult = open(dir_name + '/RandomForestResultsSmote.txt', 'a+')
+        predictionResult.truncate()
+        accuracy_matrix = []
+        try:
+            URL_Train, URL_Test, Label_Train, Label_Test = train_test_split(featureMatrix, phishingURLLabel,
+                                                                            test_size=0.20)
+            parameters_RandomForest = {'n_estimators': [10, 100, 1000], 'criterion': ('gini', 'entropy'),
+                                       'oob_score': (True, False), 'warm_start': (True, False)}
+            estimator = RandomForestClassifier()
+            rm = Resampling()
+            featureMatrix2, phishingLabel2 = rm.smoteOversampling(URL_Train,Label_Train)
+            clf = GridSearchCV(estimator, parameters_RandomForest, n_jobs=8)
+            clf.fit(featureMatrix2,phishingLabel2)
+            result = clf.predict(URL_Test)
+            predictionResult.write(str(result))
+            predictionResult.flush()
+            predictionResult.write("\nThe 1's are:" + str(collections.Counter(result)))
+            predictionResult.flush()
+            f1Score = f1_score(Label_Test, result, pos_label='1', average='macro')
+            predictionResult.write("\nThe f1_score is:" + str(f1Score))
+            predictionResult.flush()
+            accuracy_matrix.append(f1Score)
+        except Exception as e:
+            predictionResult.write(str(e))
+
+        predictionResult.write("Random Forest Classification with SMOTE Completed with Avg. Score: " + str(np.mean(accuracy_matrix)))
+
+    # ------------- Random Forest Classifier with Borderline-1 Oversampling -------------------------------
+
+    def randomForestb1SMOTE(self,featureMatrix,phishingURLLabel):
+        dir_name = os.path.dirname(os.path.realpath(__file__))
+        predictionResult = open(dir_name + '/RandomForestResultsb1Smote.txt', 'a+')
+        predictionResult.truncate()
+        accuracy_matrix = []
+        try:
+            URL_Train, URL_Test, Label_Train, Label_Test = train_test_split(featureMatrix, phishingURLLabel,
+                                                                            test_size=0.20)
+            parameters_RandomForest = {'n_estimators': [10, 100, 1000], 'criterion': ('gini', 'entropy'),
+                                       'oob_score': (True, False), 'warm_start': (True, False)}
+            estimator = RandomForestClassifier()
+            rm = Resampling()
+            featureMatrix2,phishingLabel2 = rm.b1smoteOversampling(URL_Train,Label_Train)
+            clf = GridSearchCV(estimator, parameters_RandomForest, n_jobs=8)
+            clf.fit(featureMatrix2, phishingLabel2)
+            result = clf.predict(URL_Test)
+            predictionResult.write(str(result))
+            predictionResult.flush()
+            predictionResult.write("\nThe 1's are:" + str(collections.Counter(result)))
+            predictionResult.flush()
+            f1Score = f1_score(Label_Test, result, pos_label='1', average='macro')
+            predictionResult.write("\nThe f1_score is:" + str(f1Score))
+            predictionResult.flush()
+            accuracy_matrix.append(f1Score)
+        except Exception as e:
+            predictionResult.write(str(e))
+
+        predictionResult.write("Random Forest Classification with Borderline-1 SMOTE Completed with Avg. Score: " + str(np.mean(accuracy_matrix)))
+
+    # ---------- Random Forest Classifier with Borderline-2 Oversampling -------------------------------------------------
+
+    def randomForestb2SMOTE(self,featureMatrix,phishingURLLabel):
+        dir_name = os.path.dirname(os.path.realpath(__file__))
+        predictionResult = open(dir_name + '/RandomForestResultsb2Smote.txt', 'a+')
+        predictionResult.truncate()
+        accuracy_matrix = []
+        try:
+            URL_Train, URL_Test, Label_Train, Label_Test = train_test_split(featureMatrix, phishingURLLabel,
+                                                                            test_size=0.20)
+            parameters_RandomForest = {'n_estimators': [10, 100, 1000], 'criterion': ('gini', 'entropy'),
+                                       'oob_score': (True, False), 'warm_start': (True, False)}
+            estimator = RandomForestClassifier()
+            rm = Resampling()
+            featureMatrix2,phishingLabel2 = rm.b2smoteOversampling(URL_Train,Label_Train)
+            clf = GridSearchCV(estimator, parameters_RandomForest, n_jobs=8)
+            clf.fit(featureMatrix2, phishingLabel2)
+            result = clf.predict(URL_Test)
+            predictionResult.write(str(result))
+            predictionResult.flush()
+            predictionResult.write("\nThe 1's are:" + str(collections.Counter(result)))
+            predictionResult.flush()
+            f1Score = f1_score(Label_Test, result, pos_label='1', average='macro')
+            predictionResult.write("\nThe f1_score is:" + str(f1Score))
+            predictionResult.flush()
+            accuracy_matrix.append(f1Score)
+        except Exception as e:
+            predictionResult.write(str(e))
+
+        predictionResult.write("Random Forest Classification with Borderline-2 SMOTE Completed with Avg. Score: " + str(np.mean(accuracy_matrix)))
+
+    #----------------- Randome Forest Classifier with SVM SMOTE Oversampling ----------------------------------------------
+
+    def randomForestSVM_Smote(self,featureMatrix,phishingURLLabel):
+        dir_name = os.path.dirname(os.path.realpath(__file__))
+        predictionResult = open(dir_name + '/RandomForestResultsSVMSmote.txt', 'a+')
+        predictionResult.truncate()
+        accuracy_matrix = []
+        try:
+            URL_Train, URL_Test, Label_Train, Label_Test = train_test_split(featureMatrix, phishingURLLabel,
+                                                                            test_size=0.20)
+            parameters_RandomForest = {'n_estimators': [10, 100, 1000], 'criterion': ('gini', 'entropy'),
+                                       'oob_score': (True, False), 'warm_start': (True, False)}
+            estimator = RandomForestClassifier()
+            rm = Resampling()
+            featureMatrix2, phishingLablel2 = rm.SVMsmoteOversampling(URL_Train,Label_Train)
+            clf = GridSearchCV(estimator, parameters_RandomForest, n_jobs=8)
+            clf.fit(featureMatrix2, phishingLablel2)
+            result = clf.predict(URL_Test)
+            predictionResult.write(str(result))
+            predictionResult.flush()
+            predictionResult.write("\nThe 1's are:" + str(collections.Counter(result)))
+            predictionResult.flush()
+            f1Score = f1_score(Label_Test, result, pos_label='1', average='macro')
+            predictionResult.write("\nThe f1_score is:" + str(f1Score))
+            predictionResult.flush()
+            accuracy_matrix.append(f1Score)
+        except Exception as e:
+            predictionResult.write(str(e))
+
+        predictionResult.write("Random Forest Classification with SVM Smote Oversampling Completed with Avg. Score: " + str(np.mean(accuracy_matrix)))
+
+    #--------------------------- Random Forest Classifier with Random Minority Oversampling with replacement ---------
+
+    def randomForestRMR(self,featureMatrix,phishingURLLabel):
+        dir_name = os.path.dirname(os.path.realpath(__file__))
+        predictionResult = open(dir_name + '/RandomForestResultsRMR.txt', 'a+')
+        predictionResult.truncate()
+        accuracy_matrix = []
+        try:
+            URL_Train, URL_Test, Label_Train, Label_Test = train_test_split(featureMatrix, phishingURLLabel,
+                                                                            test_size=0.20)
+            parameters_RandomForest = {'n_estimators': [10, 100, 1000], 'criterion': ('gini', 'entropy'),
+                                       'oob_score': (True, False), 'warm_start': (True, False)}
+            estimator = RandomForestClassifier()
+            rm = Resampling()
+            featureMatrix2, phishingLabel2 = rm.RMROversampling(URL_Train,Label_Train)
+            clf = GridSearchCV(estimator, parameters_RandomForest, n_jobs=8)
+            clf.fit(featureMatrix2, phishingLabel2)
+            result = clf.predict(URL_Test)
+            predictionResult.write(str(result))
+            predictionResult.flush()
+            predictionResult.write("\nThe 1's are:" + str(collections.Counter(result)))
+            predictionResult.flush()
+            f1Score = f1_score(Label_Test, result, pos_label='1', average='macro')
+            predictionResult.write("\nThe f1_score is:" + str(f1Score))
+            predictionResult.flush()
+            accuracy_matrix.append(f1Score)
+        except Exception as e:
+            predictionResult.write(str(e))
+
+        predictionResult.write("Random Forest Classification with Random Minority Oversampling Completed with Avg. Score: " + str(np.mean(accuracy_matrix)))
+
+    #--------------------- Random Forest Classifier with ADASYN Oversampling -------------------------------------------
+
+    def randomForestADASYN(self,featureMatrix,phishingURLLabel):
+        dir_name = os.path.dirname(os.path.realpath(__file__))
+        predictionResult = open(dir_name + '/RandomForestResultsADASYN.txt', 'a+')
+        predictionResult.truncate()
+        accuracy_matrix = []
+        try:
+            URL_Train, URL_Test, Label_Train, Label_Test = train_test_split(featureMatrix, phishingURLLabel,
+                                                                            test_size=0.20)
+            parameters_RandomForest = {'n_estimators': [10, 100, 1000], 'criterion': ('gini', 'entropy'),
+                                       'oob_score': (True, False), 'warm_start': (True, False)}
+            estimator = RandomForestClassifier()
+            rm = Resampling()
+            featureMatrix2, phishingLabel2 = rm.ADASYNOversampling(URL_Train,Label_Train)
+            clf = GridSearchCV(estimator, parameters_RandomForest, n_jobs=8)
+            clf.fit(featureMatrix2, phishingLabel2)
+            result = clf.predict(URL_Test)
+            predictionResult.write(str(result))
+            predictionResult.flush()
+            predictionResult.write("\nThe 1's are:" + str(collections.Counter(result)))
+            predictionResult.flush()
+            f1Score = f1_score(Label_Test, result, pos_label='1', average='macro')
+            predictionResult.write("\nThe f1_score is:" + str(f1Score))
+            predictionResult.flush()
+            accuracy_matrix.append(f1Score)
+        except Exception as e:
+            predictionResult.write(str(e))
+
+        predictionResult.write("Random Forest Classification with ADASYN Oversampling Completed with Avg. Score: " + str(np.mean(accuracy_matrix)))
