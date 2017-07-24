@@ -41,18 +41,7 @@ else:
 featureMatrix = numpy.array(featureMatrix,dtype='double')
 phishingLabel = numpy.array(phishingLabel,dtype='double')
 
-print 'Before'
-print len(featureMatrix)
 
-decisionTree = MyDecisionTreeClassifier()
-decisionTree.decisionTreeSMOTE(featureMatrix,phishingLabel)
-#
-
-
-print 'Value of FeatureMatrix'
-print len(featureMatrix)
-decisionTree2 = MyDecisionTreeClassifier()
-decisionTree2.decisionTreebSMOTE1(featureMatrix,phishingLabel)
 #
 # decisionTree3 = MyDecisionTreeClassifier()
 # decisionTree3.decisionTreebSMOTE2(featureMatrix,phishingLabel)
