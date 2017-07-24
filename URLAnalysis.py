@@ -3,18 +3,18 @@ import random
 def separate_url(URL):
     flag = 0
     protocol = URL[0:6]
-    print protocol
+    #print protocol
     remainingURL = URL[7:]
-    print remainingURL
+    #print remainingURL
     split = remainingURL.split('/')
-    print split
+    #print split
     try:
         host = split[0]
         if host=='':
             flag=1
             raise
         else:
-            print "All OK"
+            #print "All OK"
             flag=0
 
     except:
@@ -22,10 +22,10 @@ def separate_url(URL):
 
     return flag
 
-
-# with open('grepOutput.txt','r') as fileptr:
+#
+# with open('EbayThreshold5Non_Phishy.txt','r') as fileptr:
 #     URLs = fileptr.readlines()
-#     f = open('cleanGrepOutput.txt','a')
+#     f = open('EbayThreshold5_NP_Cleaned.txt','a')
 #     for i in range(len(URLs)):
 #         flag = separate_url(URLs[i])
 #         if flag==0:

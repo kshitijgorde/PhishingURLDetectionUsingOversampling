@@ -175,10 +175,10 @@ class FeaturesCSV():
         return kld
 
 
-    def createCSVFile(self,columns,originalHeader,threshold):
+    def createCSVFile(self,columns,originalHeader,threshold,fileName):
         'Creates a CSV File denoting features of the URL'
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        with open(dir_name+'/URLFeatures.csv', 'wb') as featureCSVFile:
+        with open(dir_name+'/'+fileName, 'wb') as featureCSVFile:
             w = csv.writer(featureCSVFile)
             w.writerow(["URL","IP", "LongURL", "PreSuffix","SubDomain","@Symbol","TLDInPath","SuspiciousWords","PunctuationSymbols","DigitsInDomain","Entropy","KLDivergence","Phishy"])
             count = 0

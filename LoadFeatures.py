@@ -5,15 +5,16 @@ from collections import OrderedDict
 from collections import defaultdict
 class LoadFeatures():
     'This class contains methods to load and create feature matrix from the URLFeatures File'
-    def loadFeatures(self):
+    def loadFeatures(self,fileName):
         header = []
         UrlDict = OrderedDict()
         columns = defaultdict(list)
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        csvFile = open(dir_name+'/URLFeatures.csv', 'r')
+        print fileName
+        csvFile = open(fileName, 'r')
         reader = csv.reader(csvFile)
         header = next(reader)
-        with open(dir_name+'/URLFeatures.csv') as f:
+        with open(dir_name+'/'+fileName) as f:
             reader = csv.DictReader(f)  # read rows into a dictionary format
             for row in reader:  # read a row as {column1: value1, column2: value2,...}
                 for (k, v) in row.items():
@@ -21,6 +22,8 @@ class LoadFeatures():
                     columns[k].append(v)  # append the value into the appropriate list
 
         urlList = columns[header[0]]
+        print 'URLList:'
+        print len(urlList)
         featureMatrix = []
         for i in range(0, len(urlList)):
             term_matrix = []

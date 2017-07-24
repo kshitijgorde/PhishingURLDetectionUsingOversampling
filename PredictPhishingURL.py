@@ -11,35 +11,87 @@ from MyAdaBoost import MyAdaBoostClassifier
 from Resampling import Resampling
 from collections import OrderedDict
 
-datasetObject = LoadCSVDataset()
-cleanedDataset,header = datasetObject.loadDataset()
-#print cleanedDataset[header[0]][34001]
-#Here I've obtained the cleaned Dataset with N/A removed.
-#Below I've created methods to create a csv file with all the relevant String features.
-featureObject = FeaturesCSV()
-threshold = 10
-featureObject.createCSVFile(cleanedDataset,header,threshold)
+# datasetObject = LoadCSVDataset()
+# cleanedDataset,header = datasetObject.loadDataset()
+# #print cleanedDataset[header[0]][34001]
+# #Here I've obtained the cleaned Dataset with N/A removed.
+# #Below I've created methods to create a csv file with all the relevant String features.
+# featureObject = FeaturesCSV()
+threshold = 5
+# fileName = 'Outresponse.csv'
+# featureObject.createCSVFile(cleanedDataset,header,threshold,fileName)
+# features = LoadFeatures()
+# featureMatrix,phishingLabel = features.loadFeatures(fileName)
+#
+# phishyURLs = features.loadPositiveFeatures()
+# nonPhishyURLs = features.loadNegativeFeatures()
+
+
+
+#print 'Phishy:' + str(phishingLabel.count(1))
+#print 'Non Phishy:' + str(phishingLabel.count(0))
+# pre = GanPreProcess()
+#
+# if len(phishyURLs) > len(nonPhishyURLs):
+# 	for everyURL in nonPhishyURLs:				#Uncomment this if you need to Generate Training samples for GAN
+# 		pre.preProcessURLs(everyURL)
+# else:
+# 	for everyURL in phishyURLs:
+# 		pre.preProcessURLs(everyURL)
+
+# featureMatrix = numpy.array(featureMatrix,dtype='double')
+# phishingLabel = numpy.array(phishingLabel,dtype='double')
+
+
+
+
+
+
+# ------------------------   Load the fake URL's and put them into a CSV file ----------------------
 features = LoadFeatures()
-featureMatrix,phishingLabel = features.loadFeatures()
+FakefileName = 'EbayThreshold5_NP_Cleaned.txt'
+fakeCSV = LoadCSVDataset()
+fakeCSVFileName = fakeCSV.createCSVForFakeURL(FakefileName,threshold)
+fakeURLcleanedDataset, fakeURLheader = fakeCSV.loadDataset(fakeCSVFileName)
+featurecsv = FeaturesCSV()
+featurecsv.createCSVFile(fakeURLcleanedDataset, fakeURLheader,threshold,'Features_'+fakeCSVFileName)
+#--------------- Once you created a Fake CSV File, get it's feature matrix -------------------------
 
-phishyURLs = features.loadPositiveFeatures()
-nonPhishyURLs = features.loadNegativeFeatures()
+fakeURLFeatureMatrix,fakeURLphishingLabel = features.loadFeatures('Features_'+fakeCSVFileName)
+
+
+#-------------- Apply Selection Techniques -----------------------------------
+#1. Using Convex-Hull Algorithm
+#
+fakeURLFeatureMatrix = numpy.array(fakeURLFeatureMatrix,dtype='double')
+print fakeURLFeatureMatrix.shape
+
+print 'Applying k-best Feature selections...'
+from sklearn.feature_selection import SelectKBest,chi2
+fakeFeatureReshaped = SelectKBest(chi2,k=9).fit_transform(fakeURLFeatureMatrix,fakeURLphishingLabel)
+print fakeFeatureReshaped.shape
+
+
+from scipy.spatial import ConvexHull
+hull = ConvexHull(fakeFeatureReshaped)
+print hull.vertices
+
+
+import matplotlib.pyplot as plt
+plt.plot(fakeFeatureReshaped[:,0], fakeFeatureReshaped[:,1], 'o')
+for simplex in hull.simplices:
+    plt.plot(fakeFeatureReshaped[simplex, 0], fakeFeatureReshaped[simplex, 1], 'k-')
+
+plt.show()
 
 
 
-print 'Phishy:' + str(phishingLabel.count(1))
-print 'Non Phishy:' + str(phishingLabel.count(0))
-pre = GanPreProcess()
 
-if len(phishyURLs) > len(nonPhishyURLs):
-	for everyURL in nonPhishyURLs:
-		pre.preProcessURLs(everyURL)
-else:
-	for everyURL in phishyURLs:
-		pre.preProcessURLs(everyURL)
 
-featureMatrix = numpy.array(featureMatrix,dtype='double')
-phishingLabel = numpy.array(phishingLabel,dtype='double')
+
+
+
+
 
 
 #

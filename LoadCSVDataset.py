@@ -18,11 +18,11 @@ class LoadCSVDataset:
 
 
 
-    def loadDataset(self):
+    def loadDataset(self,fileName):
         'Method for loading the CSV File'
         dir_name = os.path.dirname(os.path.realpath(__file__))
         columns = defaultdict(list)
-        csvFile = open(dir_name+'/Outresponse.csv','a+')
+        csvFile = open(dir_name+'/'+fileName,'a+')
         #DataSamples = open('randomDataSamples.txt','r').readlines()
 
         header = []
@@ -37,7 +37,7 @@ class LoadCSVDataset:
 
 
         count=0
-        with open (dir_name+'/Outresponse.csv') as file:
+        with open (dir_name+'/'+fileName) as file:
             reader = csv.DictReader(file)
             for row in reader:
                 for(k,v) in row.items():
@@ -47,3 +47,23 @@ class LoadCSVDataset:
         #print len(columns[header[0]])
         cleanedColumns = self.cleanDataset(columns,header)
         return cleanedColumns,header
+
+    def createCSVForFakeURL(self,fakeURLFile,threshold):
+        dir_name = os.path.dirname(os.path.realpath(__file__))
+        fakeCSVFileName = str(fakeURLFile).replace('.txt','_Outresponse.csv')
+        fakeCSVFileName = fakeCSVFileName
+        csvFile = open(dir_name + '/'+fakeCSVFileName, 'a+')
+        csvFile.truncate()
+        FakeURL = open(fakeURLFile,'r').readlines()
+        header = ['URL','Positive','Total']
+        writer = csv.writer(csvFile)
+        writer.writerow(header)
+
+        for everyRow in FakeURL:
+            everyRow = everyRow.replace('\n','').replace('\r','')
+            if everyRow!='' or len(everyRow)>0:
+                fields = [everyRow,threshold,64]
+                writer = csv.writer(csvFile)
+                writer.writerow(fields)
+        print 'CSV File Generated with Fake URLs...for threshold:'+str(threshold)
+        return fakeCSVFileName
