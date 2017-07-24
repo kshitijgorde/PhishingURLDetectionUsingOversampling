@@ -41,43 +41,30 @@ else:
 featureMatrix = numpy.array(featureMatrix,dtype='double')
 phishingLabel = numpy.array(phishingLabel,dtype='double')
 
-
+print 'Before'
 print len(featureMatrix)
-print len(phishingLabel)
 
-
-
-# #Once obtained Feature matrix, make a call to Classifiers
-#    #17909
 decisionTree = MyDecisionTreeClassifier()
 decisionTree.decisionTreeSMOTE(featureMatrix,phishingLabel)
+#
 
+
+print 'Value of FeatureMatrix'
+print len(featureMatrix)
 decisionTree2 = MyDecisionTreeClassifier()
 decisionTree2.decisionTreebSMOTE1(featureMatrix,phishingLabel)
-
-decisionTree3 = MyDecisionTreeClassifier()
-decisionTree3.decisionTreebSMOTE2(featureMatrix,phishingLabel)
-
-decisionTree4 = MyDecisionTreeClassifier()
-decisionTree4.decisionTreeSVM_SMOTE(featureMatrix,phishingLabel)
-
-decisionTree5 = MyDecisionTreeClassifier()
-decisionTree5.decisionTreeADASYN(featureMatrix,phishingLabel)
-
-decisionTree6 = MyDecisionTreeClassifier()
-decisionTree6.decisionTreeRMR(featureMatrix,phishingLabel)
-
-decisionTree7 =  MyDecisionTreeClassifier()
-decisionTree7.decisionTreeNoOversampling(featureMatrix,phishingLabel)
-
-# rf = MyRandomForestClassifier()
-# rf.randomForestF1(featureMatrix,phishingLabel)
-# #
-# ada = MyAdaBoostClassifier()
-# ada.adaBoostF1(featureMatrix,phishingLabel)
-# #
-#rbm = MyRBM()
-#rbm.rbmClassifyF1(featureMatrix,phishingLabel)
-
-# svm = MySupportVector()
-# svm.supportVectorF1(featureMatrix,phishingLabel)
+#
+# decisionTree3 = MyDecisionTreeClassifier()
+# decisionTree3.decisionTreebSMOTE2(featureMatrix,phishingLabel)
+#
+# decisionTree4 = MyDecisionTreeClassifier()
+# decisionTree4.decisionTreeSVM_SMOTE(featureMatrix,phishingLabel)
+#
+# decisionTree5 = MyDecisionTreeClassifier()
+# decisionTree5.decisionTreeADASYN(featureMatrix,phishingLabel)
+#
+# decisionTree6 = MyDecisionTreeClassifier()
+# decisionTree6.decisionTreeRMR(featureMatrix,phishingLabel)
+#
+# decisionTree7 =  MyDecisionTreeClassifier()
+# decisionTree7.decisionTreeNoOversampling(featureMatrix,phishingLabel)
