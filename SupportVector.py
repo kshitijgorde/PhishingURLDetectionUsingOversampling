@@ -16,7 +16,7 @@ class MySupportVector():
         try:
             URL_Train, URL_Test, Label_Train, Label_Test = train_test_split(featureMatrix, phishingURLLabel,
                                                                             test_size=0.20)
-            parameters_SVC = {'C': [1.0, 10.0,15.0,20.0,22.0,30.0], 'kernel': ('rbf', 'sigmoid', 'linear', 'poly'), 'degree': [3, 4],
+            parameters_SVC = {'C': [1.0, 10.0,15.0,20.0,22.0,30.0], 'kernel': ('rbf', 'sigmoid', 'linear'),
                               'probability': (True, False), 'shrinking': (True, False),
                               'decision_function_shape': ('ovo', 'ovr', 'None')}
             # totalSamples = len(Label_Train)

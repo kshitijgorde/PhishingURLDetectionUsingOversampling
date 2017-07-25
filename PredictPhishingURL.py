@@ -64,28 +64,37 @@ fakeURLFeatureMatrix,fakeURLphishingLabel = features.loadFeatures('Features_'+fa
 #1. Using Convex-Hull Algorithm
 #
 fakeURLFeatureMatrix = numpy.array(fakeURLFeatureMatrix,dtype='double')
-print fakeURLFeatureMatrix.shape
-
-print 'Applying k-best Feature selections...'
-from sklearn.feature_selection import SelectKBest,chi2
-fakeFeatureReshaped = SelectKBest(chi2,k=9).fit_transform(fakeURLFeatureMatrix,fakeURLphishingLabel)
-print fakeFeatureReshaped.shape
-
-
-from scipy.spatial import ConvexHull
-hull = ConvexHull(fakeFeatureReshaped)
-print hull.vertices
-
-
-import matplotlib.pyplot as plt
-plt.plot(fakeFeatureReshaped[:,0], fakeFeatureReshaped[:,1], 'o')
-for simplex in hull.simplices:
-    plt.plot(fakeFeatureReshaped[simplex, 0], fakeFeatureReshaped[simplex, 1], 'k-')
-
-plt.show()
 
 
 
+#Uncomment below for k-best Feature selections and plotting
+# print 'Applying k-best Feature selections...'
+# from sklearn.feature_selection import SelectKBest,chi2,f_classif,mutual_info_classif
+# fakeFeatureReshaped = SelectKBest(f_classif,k=2).fit_transform(fakeURLFeatureMatrix,fakeURLphishingLabel)
+# print fakeFeatureReshaped.shape
+#
+#
+# from scipy.spatial import ConvexHull
+# hull = ConvexHull(fakeFeatureReshaped)
+# print hull.vertices
+#
+#
+# import matplotlib.pyplot as plt
+# plt.plot(fakeFeatureReshaped[:,0], fakeFeatureReshaped[:,1],fakeFeatureReshaped[:,2], 'o')
+# for simplex in hull.simplices:
+#     plt.plot(fakeFeatureReshaped[simplex, 0],fakeFeatureReshaped[simplex, 1], fakeFeatureReshaped[simplex, 2], 'k-')
+#
+# plt.show()
+#
+
+#----------------2. Choose k farthest Fake URLs --------------------------------
+
+from scipy import ndimage
+from scipy.spatial import distance
+centroid = ndimage.center_of_mass(fakeURLFeatureMatrix)
+print centroid
+
+ec_distance = distance.euclidean(fakeURLFeatureMatrix[0],centroid)
 
 
 
