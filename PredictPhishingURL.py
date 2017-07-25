@@ -89,13 +89,19 @@ fakeURLFeatureMatrix = numpy.array(fakeURLFeatureMatrix,dtype='double')
 
 #----------------2. Choose k farthest Fake URLs --------------------------------
 
-from scipy import ndimage
+centroid = numpy.mean(fakeURLFeatureMatrix,axis=0)
 from scipy.spatial import distance
-centroid = ndimage.center_of_mass(fakeURLFeatureMatrix)
-print centroid
+# Calculate Distances of each point from Centroid and store in a Dictionary...
 
-ec_distance = distance.euclidean(fakeURLFeatureMatrix[0],centroid)
+fakeURLDistances = {}
 
+for i in range(0,len(fakeURLFeatureMatrix)):
+    euclDistance = distance.euclidean(fakeURLFeatureMatrix[i],centroid)
+    fakeURLDistances[i] = euclDistance
+
+#Sort Dictionary by Descending Order
+import operator
+sorted_FakeURLDistances = sorted(fakeURLDistances.items(),key=operator.itemgetter(1), reverse=True)
 
 
 
