@@ -10,8 +10,7 @@ class LoadFeatures():
         UrlDict = OrderedDict()
         columns = defaultdict(list)
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        print fileName
-        csvFile = open(fileName, 'r')
+        csvFile = open(dir_name+'/'+fileName, 'r')
         reader = csv.reader(csvFile)
         header = next(reader)
         with open(dir_name+'/'+fileName) as f:
@@ -22,8 +21,6 @@ class LoadFeatures():
                     columns[k].append(v)  # append the value into the appropriate list
 
         urlList = columns[header[0]]
-        print 'URLList:'
-        print len(urlList)
         featureMatrix = []
         for i in range(0, len(urlList)):
             term_matrix = []

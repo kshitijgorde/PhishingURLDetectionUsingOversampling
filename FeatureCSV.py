@@ -178,7 +178,8 @@ class FeaturesCSV():
     def createCSVFile(self,columns,originalHeader,threshold,fileName):
         'Creates a CSV File denoting features of the URL'
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        with open(dir_name+'/'+fileName, 'wb') as featureCSVFile:
+        createdFile = 'Features_'+fileName
+        with open(dir_name+'/'+createdFile, 'wb') as featureCSVFile:
             w = csv.writer(featureCSVFile)
             w.writerow(["URL","IP", "LongURL", "PreSuffix","SubDomain","@Symbol","TLDInPath","SuspiciousWords","PunctuationSymbols","DigitsInDomain","Entropy","KLDivergence","Phishy"])
             count = 0
@@ -209,6 +210,7 @@ class FeaturesCSV():
                 #print features
                 #write these features to the csv File
                 w.writerow(features)
+            return createdFile
 
     def normalized(self,lst):
         s = sum(lst)

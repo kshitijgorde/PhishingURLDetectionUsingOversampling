@@ -7,14 +7,21 @@ import collections
 from Resampling import Resampling
 class MyRandomForestClassifier():
     'Implelments Random Forest Classifier'
-    def randomForestNoOversampling(self,featureMatrix,phishingURLLabel):
+    def randomForestNoOversampling(self,featureMatrix,phishingURLLabel,fakeFeatureMatrix,fakeLabels,technique):
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        predictionResult = open(dir_name + '/RandomForestResultsNoOversampling.txt', 'a+')
+        predictionResult = open(dir_name + '/'+technique+'RandomForestResultsNoOversampling.txt', 'a+')
         predictionResult.truncate()
         accuracy_matrix = []
         try:
             URL_Train, URL_Test, Label_Train, Label_Test = train_test_split(featureMatrix, phishingURLLabel,
                                                                             test_size=0.20)
+            URL_Train = list(URL_Train)
+            for everyFeature in fakeFeatureMatrix:
+                URL_Train.append(everyFeature)
+
+            Label_Train = list(Label_Train)
+            for everyFakeLabel in fakeLabels:
+                Label_Train.append(everyFakeLabel)
             parameters_RandomForest = {'n_estimators': [10, 100, 1000], 'criterion': ('gini', 'entropy'),
                                        'oob_score': (True, False), 'warm_start': (True, False)}
             estimator = RandomForestClassifier()
@@ -36,9 +43,9 @@ class MyRandomForestClassifier():
 
     # ---- Random Forest Classifier with SMOTE ---------------------------------------
 
-    def randomForestSMOTE(self,featureMatrix,phishingURLLabel):
+    def randomForestSMOTE(self,featureMatrix,phishingURLLabel,fakeFeatureMatrix,fakeLabels,technique):
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        predictionResult = open(dir_name + '/RandomForestResultsSmote.txt', 'a+')
+        predictionResult = open(dir_name + '/'+technique+'RandomForestResultsSmote.txt', 'a+')
         predictionResult.truncate()
         accuracy_matrix = []
         try:
@@ -46,6 +53,14 @@ class MyRandomForestClassifier():
                                                                             test_size=0.20)
             parameters_RandomForest = {'n_estimators': [10, 100, 1000], 'criterion': ('gini', 'entropy'),
                                        'oob_score': (True, False), 'warm_start': (True, False)}
+
+            URL_Train = list(URL_Train)
+            for everyFeature in fakeFeatureMatrix:
+                URL_Train.append(everyFeature)
+
+            Label_Train = list(Label_Train)
+            for everyFakeLabel in fakeLabels:
+                Label_Train.append(everyFakeLabel)
             estimator = RandomForestClassifier()
             rm = Resampling()
             featureMatrix2, phishingLabel2 = rm.smoteOversampling(URL_Train,Label_Train)
@@ -67,9 +82,9 @@ class MyRandomForestClassifier():
 
     # ------------- Random Forest Classifier with Borderline-1 Oversampling -------------------------------
 
-    def randomForestb1SMOTE(self,featureMatrix,phishingURLLabel):
+    def randomForestb1SMOTE(self,featureMatrix,phishingURLLabel,fakeFeatureMatrix,fakeLabels,technique):
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        predictionResult = open(dir_name + '/RandomForestResultsb1Smote.txt', 'a+')
+        predictionResult = open(dir_name + '/'+technique+'RandomForestResultsb1Smote.txt', 'a+')
         predictionResult.truncate()
         accuracy_matrix = []
         try:
@@ -77,6 +92,14 @@ class MyRandomForestClassifier():
                                                                             test_size=0.20)
             parameters_RandomForest = {'n_estimators': [10, 100, 1000], 'criterion': ('gini', 'entropy'),
                                        'oob_score': (True, False), 'warm_start': (True, False)}
+
+            URL_Train = list(URL_Train)
+            for everyFeature in fakeFeatureMatrix:
+                URL_Train.append(everyFeature)
+
+            Label_Train = list(Label_Train)
+            for everyFakeLabel in fakeLabels:
+                Label_Train.append(everyFakeLabel)
             estimator = RandomForestClassifier()
             rm = Resampling()
             featureMatrix2,phishingLabel2 = rm.b1smoteOversampling(URL_Train,Label_Train)
@@ -98,9 +121,9 @@ class MyRandomForestClassifier():
 
     # ---------- Random Forest Classifier with Borderline-2 Oversampling -------------------------------------------------
 
-    def randomForestb2SMOTE(self,featureMatrix,phishingURLLabel):
+    def randomForestb2SMOTE(self,featureMatrix,phishingURLLabel,fakeFeatureMatrix,fakeLabels,technique):
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        predictionResult = open(dir_name + '/RandomForestResultsb2Smote.txt', 'a+')
+        predictionResult = open(dir_name + '/'+technique+'RandomForestResultsb2Smote.txt', 'a+')
         predictionResult.truncate()
         accuracy_matrix = []
         try:
@@ -108,6 +131,14 @@ class MyRandomForestClassifier():
                                                                             test_size=0.20)
             parameters_RandomForest = {'n_estimators': [10, 100, 1000], 'criterion': ('gini', 'entropy'),
                                        'oob_score': (True, False), 'warm_start': (True, False)}
+
+            URL_Train = list(URL_Train)
+            for everyFeature in fakeFeatureMatrix:
+                URL_Train.append(everyFeature)
+
+            Label_Train = list(Label_Train)
+            for everyFakeLabel in fakeLabels:
+                Label_Train.append(everyFakeLabel)
             estimator = RandomForestClassifier()
             rm = Resampling()
             featureMatrix2,phishingLabel2 = rm.b2smoteOversampling(URL_Train,Label_Train)
@@ -129,14 +160,22 @@ class MyRandomForestClassifier():
 
     #----------------- Randome Forest Classifier with SVM SMOTE Oversampling ----------------------------------------------
 
-    def randomForestSVM_Smote(self,featureMatrix,phishingURLLabel):
+    def randomForestSVM_Smote(self,featureMatrix,phishingURLLabel,fakeFeatureMatrix,fakeLabels,technique):
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        predictionResult = open(dir_name + '/RandomForestResultsSVMSmote.txt', 'a+')
+        predictionResult = open(dir_name + '/'+technique+'RandomForestResultsSVMSmote.txt', 'a+')
         predictionResult.truncate()
         accuracy_matrix = []
         try:
             URL_Train, URL_Test, Label_Train, Label_Test = train_test_split(featureMatrix, phishingURLLabel,
                                                                             test_size=0.20)
+
+            URL_Train = list(URL_Train)
+            for everyFeature in fakeFeatureMatrix:
+                URL_Train.append(everyFeature)
+
+            Label_Train = list(Label_Train)
+            for everyFakeLabel in fakeLabels:
+                Label_Train.append(everyFakeLabel)
             parameters_RandomForest = {'n_estimators': [10, 100, 1000], 'criterion': ('gini', 'entropy'),
                                        'oob_score': (True, False), 'warm_start': (True, False)}
             estimator = RandomForestClassifier()
@@ -160,14 +199,22 @@ class MyRandomForestClassifier():
 
     #--------------------------- Random Forest Classifier with Random Minority Oversampling with replacement ---------
 
-    def randomForestRMR(self,featureMatrix,phishingURLLabel):
+    def randomForestRMR(self,featureMatrix,phishingURLLabel,fakeFeatureMatrix,fakeLabels,technique):
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        predictionResult = open(dir_name + '/RandomForestResultsRMR.txt', 'a+')
+        predictionResult = open(dir_name + '/'+technique+'RandomForestResultsRMR.txt', 'a+')
         predictionResult.truncate()
         accuracy_matrix = []
         try:
             URL_Train, URL_Test, Label_Train, Label_Test = train_test_split(featureMatrix, phishingURLLabel,
                                                                             test_size=0.20)
+
+            URL_Train = list(URL_Train)
+            for everyFeature in fakeFeatureMatrix:
+                URL_Train.append(everyFeature)
+
+            Label_Train = list(Label_Train)
+            for everyFakeLabel in fakeLabels:
+                Label_Train.append(everyFakeLabel)
             parameters_RandomForest = {'n_estimators': [10, 100, 1000], 'criterion': ('gini', 'entropy'),
                                        'oob_score': (True, False), 'warm_start': (True, False)}
             estimator = RandomForestClassifier()
@@ -191,14 +238,22 @@ class MyRandomForestClassifier():
 
     #--------------------- Random Forest Classifier with ADASYN Oversampling -------------------------------------------
 
-    def randomForestADASYN(self,featureMatrix,phishingURLLabel):
+    def randomForestADASYN(self,featureMatrix,phishingURLLabel,fakeFeatureMatrix,fakeLabels,technique):
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        predictionResult = open(dir_name + '/RandomForestResultsADASYN.txt', 'a+')
+        predictionResult = open(dir_name + '/'+technique+'RandomForestResultsADASYN.txt', 'a+')
         predictionResult.truncate()
         accuracy_matrix = []
         try:
             URL_Train, URL_Test, Label_Train, Label_Test = train_test_split(featureMatrix, phishingURLLabel,
                                                                             test_size=0.20)
+
+            URL_Train = list(URL_Train)
+            for everyFeature in fakeFeatureMatrix:
+                URL_Train.append(everyFeature)
+
+            Label_Train = list(Label_Train)
+            for everyFakeLabel in fakeLabels:
+                Label_Train.append(everyFakeLabel)
             parameters_RandomForest = {'n_estimators': [10, 100, 1000], 'criterion': ('gini', 'entropy'),
                                        'oob_score': (True, False), 'warm_start': (True, False)}
             estimator = RandomForestClassifier()
