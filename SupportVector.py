@@ -8,15 +8,23 @@ from Resampling import Resampling
 class MySupportVector():
     'Implements support vector classifier'
 
-    def supportVectorNoOversampling(self,featureMatrix,phishingURLLabel):
+    def supportVectorNoOversampling(self,featureMatrix,phishingURLLabel,fakeFeatureMatrix,fakeLabels,technique):
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        predictionResult = open(dir_name+'/SVMResultsNoOversampling.txt', 'a+')
+        predictionResult = open(dir_name+'/'+technique+'SVMResultsNoOversampling.txt', 'a+')
         predictionResult.truncate()
         accuracy_matrix = []
         try:
             URL_Train, URL_Test, Label_Train, Label_Test = train_test_split(featureMatrix, phishingURLLabel,
                                                                             test_size=0.20)
-            parameters_SVC = {'C': [1.0, 10.0,15.0,20.0,22.0,30.0], 'kernel': ('rbf', 'sigmoid', 'linear', 'poly'), 'degree': [3, 4],
+
+            URL_Train = list(URL_Train)
+            for everyFeature in fakeFeatureMatrix:
+                URL_Train.append(everyFeature)
+
+            Label_Train = list(Label_Train)
+            for everyFakeLabel in fakeLabels:
+                Label_Train.append(everyFakeLabel)
+            parameters_SVC = {'C': [1.0, 10.0,15.0,20.0,22.0,30.0], 'kernel': ('rbf', 'sigmoid', 'linear'),
                               'probability': (True, False), 'shrinking': (True, False),
                               'decision_function_shape': ('ovo', 'ovr', 'None')}
             # totalSamples = len(Label_Train)
@@ -40,15 +48,23 @@ class MySupportVector():
         predictionResult.write("SVM Classification without Oversampling Completed with Avg. Score: " + str(np.mean(accuracy_matrix)))
 
     #--------------- SVM Classifier with SMOTE---------------------
-    def supportVectorSMOTE(self,featureMatrix,phishingURLLabel):
+    def supportVectorSMOTE(self,featureMatrix,phishingURLLabel,fakeFeatureMatrix,fakeLabels,technique):
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        predictionResult = open(dir_name+'/SVMResultsSmote.txt', 'a+')
+        predictionResult = open(dir_name+'/'+technique+'SVMResultsSmote.txt', 'a+')
         predictionResult.truncate()
         accuracy_matrix = []
         try:
             URL_Train, URL_Test, Label_Train, Label_Test = train_test_split(featureMatrix, phishingURLLabel,
                                                                             test_size=0.20)
-            parameters_SVC = {'C': [1.0, 10.0,15.0,20.0,22.0,30.0], 'kernel': ('rbf', 'sigmoid', 'linear', 'poly'), 'degree': [3, 4],
+
+            URL_Train = list(URL_Train)
+            for everyFeature in fakeFeatureMatrix:
+                URL_Train.append(everyFeature)
+
+            Label_Train = list(Label_Train)
+            for everyFakeLabel in fakeLabels:
+                Label_Train.append(everyFakeLabel)
+            parameters_SVC = {'C': [1.0, 10.0,15.0,20.0,22.0,30.0], 'kernel': ('rbf', 'sigmoid', 'linear'),
                               'probability': (True, False), 'shrinking': (True, False),
                               'decision_function_shape': ('ovo', 'ovr', 'None')}
             # totalSamples = len(Label_Train)
@@ -74,15 +90,23 @@ class MySupportVector():
         predictionResult.write("SVM Classification with Smote Completed with Avg. Score: " + str(np.mean(accuracy_matrix)))
 
     #--------------SVM Borderline-1 SMOTE
-    def supportVectorb1Smote(self,featureMatrix,phishingURLLabel):
+    def supportVectorb1Smote(self,featureMatrix,phishingURLLabel,fakeFeatureMatrix,fakeLabels,technique):
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        predictionResult = open(dir_name+'/SVMResultsb1Smote.txt', 'a+')
+        predictionResult = open(dir_name+'/'+technique+'SVMResultsb1Smote.txt', 'a+')
         predictionResult.truncate()
         accuracy_matrix = []
         try:
             URL_Train, URL_Test, Label_Train, Label_Test = train_test_split(featureMatrix, phishingURLLabel,
                                                                             test_size=0.20)
-            parameters_SVC = {'C': [1.0, 10.0,15.0,20.0,22.0,30.0], 'kernel': ('rbf', 'sigmoid', 'linear', 'poly'), 'degree': [3, 4],
+
+            URL_Train = list(URL_Train)
+            for everyFeature in fakeFeatureMatrix:
+                URL_Train.append(everyFeature)
+
+            Label_Train = list(Label_Train)
+            for everyFakeLabel in fakeLabels:
+                Label_Train.append(everyFakeLabel)
+            parameters_SVC = {'C': [1.0, 10.0,15.0,20.0,22.0,30.0], 'kernel': ('rbf', 'sigmoid', 'linear'),
                               'probability': (True, False), 'shrinking': (True, False),
                               'decision_function_shape': ('ovo', 'ovr', 'None')}
             # totalSamples = len(Label_Train)
@@ -109,15 +133,23 @@ class MySupportVector():
 
     #--------- SVM Borderline-2 Smote----------------------
 
-    def supportVectorb2Smote(self,featureMatrix,phishingURLLabel):
+    def supportVectorb2Smote(self,featureMatrix,phishingURLLabel,fakeFeatureMatrix,fakeLabels,technique):
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        predictionResult = open(dir_name+'/SVMResultsB2Smote.txt', 'a+')
+        predictionResult = open(dir_name+'/'+technique+'SVMResultsB2Smote.txt', 'a+')
         predictionResult.truncate()
         accuracy_matrix = []
         try:
             URL_Train, URL_Test, Label_Train, Label_Test = train_test_split(featureMatrix, phishingURLLabel,
                                                                             test_size=0.20)
-            parameters_SVC = {'C': [1.0, 10.0,15.0,20.0,22.0,30.0], 'kernel': ('rbf', 'sigmoid', 'linear', 'poly'), 'degree': [3, 4],
+
+            URL_Train = list(URL_Train)
+            for everyFeature in fakeFeatureMatrix:
+                URL_Train.append(everyFeature)
+
+            Label_Train = list(Label_Train)
+            for everyFakeLabel in fakeLabels:
+                Label_Train.append(everyFakeLabel)
+            parameters_SVC = {'C': [1.0, 10.0,15.0,20.0,22.0,30.0], 'kernel': ('rbf', 'sigmoid', 'linear'),
                               'probability': (True, False), 'shrinking': (True, False),
                               'decision_function_shape': ('ovo', 'ovr', 'None')}
             # totalSamples = len(Label_Train)
@@ -144,15 +176,23 @@ class MySupportVector():
 
     # --------------- SVM SVM Smote ------------------------
 
-    def supportVectorSVMSmote(self,featureMatrix,phishingURLLabel):
+    def supportVectorSVMSmote(self,featureMatrix,phishingURLLabel,fakeFeatureMatrix,fakeLabels,technique):
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        predictionResult = open(dir_name+'/SVMResultsSVMSmote.txt', 'a+')
+        predictionResult = open(dir_name+'/'+technique+'SVMResultsSVMSmote.txt', 'a+')
         predictionResult.truncate()
         accuracy_matrix = []
         try:
             URL_Train, URL_Test, Label_Train, Label_Test = train_test_split(featureMatrix, phishingURLLabel,
                                                                             test_size=0.20)
-            parameters_SVC = {'C': [1.0, 10.0,15.0,20.0,22.0,30.0], 'kernel': ('rbf', 'sigmoid', 'linear', 'poly'), 'degree': [3, 4],
+
+            URL_Train = list(URL_Train)
+            for everyFeature in fakeFeatureMatrix:
+                URL_Train.append(everyFeature)
+
+            Label_Train = list(Label_Train)
+            for everyFakeLabel in fakeLabels:
+                Label_Train.append(everyFakeLabel)
+            parameters_SVC = {'C': [1.0, 10.0,15.0,20.0,22.0,30.0], 'kernel': ('rbf', 'sigmoid', 'linear'),
                               'probability': (True, False), 'shrinking': (True, False),
                               'decision_function_shape': ('ovo', 'ovr', 'None')}
 
@@ -176,15 +216,23 @@ class MySupportVector():
         predictionResult.write("SVM Classification SVM Smote Completed with Avg. Score: " + str(np.mean(accuracy_matrix)))
 
     # ------------------- SVM RMR -----------------------------
-    def supportVectorRMR(self,featureMatrix,phishingURLLabel):
+    def supportVectorRMR(self,featureMatrix,phishingURLLabel,fakeFeatureMatrix,fakeLabels,technique):
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        predictionResult = open(dir_name+'/SVMResultsRMR.txt', 'a+')
+        predictionResult = open(dir_name+'/'+technique+'SVMResultsRMR.txt', 'a+')
         predictionResult.truncate()
         accuracy_matrix = []
         try:
             URL_Train, URL_Test, Label_Train, Label_Test = train_test_split(featureMatrix, phishingURLLabel,
                                                                             test_size=0.20)
-            parameters_SVC = {'C': [1.0, 10.0,15.0,20.0,22.0,30.0], 'kernel': ('rbf', 'sigmoid', 'linear', 'poly'), 'degree': [3, 4],
+
+            URL_Train = list(URL_Train)
+            for everyFeature in fakeFeatureMatrix:
+                URL_Train.append(everyFeature)
+
+            Label_Train = list(Label_Train)
+            for everyFakeLabel in fakeLabels:
+                Label_Train.append(everyFakeLabel)
+            parameters_SVC = {'C': [1.0, 10.0,15.0,20.0,22.0,30.0], 'kernel': ('rbf', 'sigmoid', 'linear'),
                               'probability': (True, False), 'shrinking': (True, False),
                               'decision_function_shape': ('ovo', 'ovr', 'None')}
             # totalSamples = len(Label_Train)
@@ -210,15 +258,23 @@ class MySupportVector():
         predictionResult.write("SVM Classification with RMR Completed with Avg. Score: " + str(np.mean(accuracy_matrix)))
 
     #------------------- SVM ADASYN ----------------------------------------------
-    def supportVectorADASYN(self,featureMatrix,phishingURLLabel):
+    def supportVectorADASYN(self,featureMatrix,phishingURLLabel,fakeFeatureMatrix,fakeLabels,technique):
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        predictionResult = open(dir_name+'/SVMResultsADASyn.txt', 'a+')
+        predictionResult = open(dir_name+'/'+technique+'SVMResultsADASyn.txt', 'a+')
         predictionResult.truncate()
         accuracy_matrix = []
         try:
             URL_Train, URL_Test, Label_Train, Label_Test = train_test_split(featureMatrix, phishingURLLabel,
                                                                             test_size=0.20)
-            parameters_SVC = {'C': [1.0, 10.0,15.0,20.0,22.0,30.0], 'kernel': ('rbf', 'sigmoid', 'linear', 'poly'), 'degree': [3, 4],
+
+            URL_Train = list(URL_Train)
+            for everyFeature in fakeFeatureMatrix:
+                URL_Train.append(everyFeature)
+
+            Label_Train = list(Label_Train)
+            for everyFakeLabel in fakeLabels:
+                Label_Train.append(everyFakeLabel)
+            parameters_SVC = {'C': [1.0, 10.0,15.0,20.0,22.0,30.0], 'kernel': ('rbf', 'sigmoid', 'linear'),
                               'probability': (True, False), 'shrinking': (True, False),
                               'decision_function_shape': ('ovo', 'ovr', 'None')}
 

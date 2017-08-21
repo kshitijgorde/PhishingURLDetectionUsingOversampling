@@ -54,7 +54,7 @@ class LoadCSVDataset:
         fakeCSVFileName = fakeCSVFileName
         csvFile = open(dir_name + '/'+fakeCSVFileName, 'a+')
         csvFile.truncate()
-        FakeURL = open(fakeURLFile,'r').readlines()
+        FakeURL = open(dir_name+'/'+fakeURLFile,'r').readlines()
         header = ['URL','Positive','Total']
         writer = csv.writer(csvFile)
         writer.writerow(header)

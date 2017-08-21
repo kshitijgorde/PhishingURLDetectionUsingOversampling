@@ -9,14 +9,21 @@ class MyAdaBoostClassifier():
     'Implements Ada boost classifier'
 
     #---- Ada Boost Classifier without Oversampling
-    def adaBoostNoOversampling(self,featureMatrix, phishingURLLabel):
+    def adaBoostNoOversampling(self,featureMatrix, phishingURLLabel,fakeFeatureMatrix,fakeLabels,technique):
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        predictionResult = open(dir_name + '/AdaBoostResultsNoOversampling.txt', 'a+')
+        predictionResult = open(dir_name + '/'+technique+'AdaBoostResultsNoOversampling.txt', 'a+')
         predictionResult.truncate()
         accuracy_matrix = []
         try:
             URL_Train, URL_Test, Label_Train, Label_Test = train_test_split(featureMatrix, phishingURLLabel,
                                                                             test_size=0.20)
+            URL_Train = list(URL_Train)
+            for everyFeature in fakeFeatureMatrix:
+                URL_Train.append(everyFeature)
+
+            Label_Train = list(Label_Train)
+            for everyFakeLabel in fakeLabels:
+                Label_Train.append(everyFakeLabel)
             parameters_adaBoost = {'n_estimators': [50, 100, 1000], 'algorithm': ('SAMME', 'SAMME.R')}
             estimator = AdaBoostClassifier()
             clf = GridSearchCV(estimator, parameters_adaBoost, n_jobs=8)
@@ -36,15 +43,22 @@ class MyAdaBoostClassifier():
         predictionResult.write("Ada Boost Classification without Oversampling Completed with Avg. Score: " + str(np.mean(accuracy_matrix)))
 
     #-------------- Ada Boost Classifier with SMOTE Oversampling --------------------------------------
-    def adaBoostSMOTE(self,featureMatrix, phishingURLLabel):
+    def adaBoostSMOTE(self,featureMatrix, phishingURLLabel,fakeFeatureMatrix,fakeLabels,technique):
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        predictionResult = open(dir_name + '/AdaBoostResultsSmote.txt', 'a+')
+        predictionResult = open(dir_name + '/'+technique+'AdaBoostResultsSmote.txt', 'a+')
         predictionResult.truncate()
         accuracy_matrix = []
         try:
             URL_Train, URL_Test, Label_Train, Label_Test = train_test_split(featureMatrix, phishingURLLabel,
                                                                             test_size=0.20)
             parameters_adaBoost = {'n_estimators': [50, 100, 1000], 'algorithm': ('SAMME', 'SAMME.R')}
+            URL_Train = list(URL_Train)
+            for everyFeature in fakeFeatureMatrix:
+                URL_Train.append(everyFeature)
+
+            Label_Train = list(Label_Train)
+            for everyFakeLabel in fakeLabels:
+                Label_Train.append(everyFakeLabel)
             estimator = AdaBoostClassifier()
             rm = Resampling()
             featureMatrix2, phishingLabel2 = rm.smoteOversampling(URL_Train,Label_Train)
@@ -66,15 +80,22 @@ class MyAdaBoostClassifier():
 
 
     #--------- Ada Boost Classifier with Borderline-1 SMOTE----------------------------------------
-    def adaBoostb1SMOTE(self,featureMatrix, phishingURLLabel):
+    def adaBoostb1SMOTE(self,featureMatrix, phishingURLLabel,fakeFeatureMatrix,fakeLabels,technique):
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        predictionResult = open(dir_name + '/AdaBoostResultsSmoteb1.txt', 'a+')
+        predictionResult = open(dir_name + '/'+technique+'AdaBoostResultsSmoteb1.txt', 'a+')
         predictionResult.truncate()
         accuracy_matrix = []
         try:
             URL_Train, URL_Test, Label_Train, Label_Test = train_test_split(featureMatrix, phishingURLLabel,
                                                                             test_size=0.20)
             parameters_adaBoost = {'n_estimators': [50, 100, 1000], 'algorithm': ('SAMME', 'SAMME.R')}
+            URL_Train = list(URL_Train)
+            for everyFeature in fakeFeatureMatrix:
+                URL_Train.append(everyFeature)
+
+            Label_Train = list(Label_Train)
+            for everyFakeLabel in fakeLabels:
+                Label_Train.append(everyFakeLabel)
             estimator = AdaBoostClassifier()
             rm = Resampling()
             featureMatrix2, phishingLabel2 = rm.b1smoteOversampling(URL_Train,Label_Train)
@@ -96,15 +117,22 @@ class MyAdaBoostClassifier():
 
     # ---------------- Ada Boost Classifier with Borderline-2 SMOTE ----------------------------
 
-    def adaBoostb2SMOTE(self,featureMatrix, phishingURLLabel):
+    def adaBoostb2SMOTE(self,featureMatrix, phishingURLLabel,fakeFeatureMatrix,fakeLabels,technique):
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        predictionResult = open(dir_name + '/AdaBoostResultsSmoteb2.txt', 'a+')
+        predictionResult = open(dir_name + '/'+technique+'AdaBoostResultsSmoteb2.txt', 'a+')
         predictionResult.truncate()
         accuracy_matrix = []
         try:
             URL_Train, URL_Test, Label_Train, Label_Test = train_test_split(featureMatrix, phishingURLLabel,
                                                                             test_size=0.20)
             parameters_adaBoost = {'n_estimators': [50, 100, 1000], 'algorithm': ('SAMME', 'SAMME.R')}
+            URL_Train = list(URL_Train)
+            for everyFeature in fakeFeatureMatrix:
+                URL_Train.append(everyFeature)
+
+            Label_Train = list(Label_Train)
+            for everyFakeLabel in fakeLabels:
+                Label_Train.append(everyFakeLabel)
             estimator = AdaBoostClassifier()
             rm = Resampling()
             featureMatrix2,phishingLabel2 = rm.b2smoteOversampling(URL_Train,Label_Train)
@@ -126,15 +154,22 @@ class MyAdaBoostClassifier():
 
     # ---------------------- Ada Boost Classifier with SVM Smote -----------------------------------------
 
-    def adaBoostSVMSmote(self,featureMatrix, phishingURLLabel):
+    def adaBoostSVMSmote(self,featureMatrix, phishingURLLabel,fakeFeatureMatrix,fakeLabels,technique):
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        predictionResult = open(dir_name + '/AdaBoostResultsSVMSmote.txt', 'a+')
+        predictionResult = open(dir_name + '/'+technique+'AdaBoostResultsSVMSmote.txt', 'a+')
         predictionResult.truncate()
         accuracy_matrix = []
         try:
             URL_Train, URL_Test, Label_Train, Label_Test = train_test_split(featureMatrix, phishingURLLabel,
                                                                             test_size=0.20)
             parameters_adaBoost = {'n_estimators': [50, 100, 1000], 'algorithm': ('SAMME', 'SAMME.R')}
+            URL_Train = list(URL_Train)
+            for everyFeature in fakeFeatureMatrix:
+                URL_Train.append(everyFeature)
+
+            Label_Train = list(Label_Train)
+            for everyFakeLabel in fakeLabels:
+                Label_Train.append(everyFakeLabel)
             estimator = AdaBoostClassifier()
             rm = Resampling()
             featureMatrix2, phishingLabel2 = rm.SVMsmoteOversampling(URL_Train,Label_Train)
@@ -155,15 +190,23 @@ class MyAdaBoostClassifier():
         predictionResult.write("Ada Boost Classification with SVM Smote Completed with Avg. Score: " + str(np.mean(accuracy_matrix)))
 
     # --------------- Ada Boost Classifier with Random Minority Oversampling ------------------
-    def adaBoostRMR(self,featureMatrix, phishingURLLabel):
+    def adaBoostRMR(self,featureMatrix, phishingURLLabel,fakeFeatureMatrix,fakeLabels,technique):
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        predictionResult = open(dir_name + '/AdaBoostResultsRMR.txt', 'a+')
+        predictionResult = open(dir_name + '/'+technique+'AdaBoostResultsRMR.txt', 'a+')
         predictionResult.truncate()
         accuracy_matrix = []
         try:
             URL_Train, URL_Test, Label_Train, Label_Test = train_test_split(featureMatrix, phishingURLLabel,
                                                                             test_size=0.20)
             parameters_adaBoost = {'n_estimators': [50, 100, 1000], 'algorithm': ('SAMME', 'SAMME.R')}
+
+            URL_Train = list(URL_Train)
+            for everyFeature in fakeFeatureMatrix:
+                URL_Train.append(everyFeature)
+
+            Label_Train = list(Label_Train)
+            for everyFakeLabel in fakeLabels:
+                Label_Train.append(everyFakeLabel)
             estimator = AdaBoostClassifier()
             rm = Resampling()
             featureMatrix2, phishingLabel2 = rm.RMROversampling(URL_Train,Label_Train)
@@ -185,15 +228,23 @@ class MyAdaBoostClassifier():
 
     #-------------------- ADa Boost Classifier with ADASYN Oversampling ---------------------------------------
 
-    def adaBoostADASYN(self,featureMatrix, phishingURLLabel):
+    def adaBoostADASYN(self,featureMatrix, phishingURLLabel,fakeFeatureMatrix,fakeLabels,technique):
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        predictionResult = open(dir_name + '/AdaBoostResultsADASYN.txt', 'a+')
+        predictionResult = open(dir_name + '/'+technique+'AdaBoostResultsADASYN.txt', 'a+')
         predictionResult.truncate()
         accuracy_matrix = []
         try:
             URL_Train, URL_Test, Label_Train, Label_Test = train_test_split(featureMatrix, phishingURLLabel,
                                                                             test_size=0.20)
             parameters_adaBoost = {'n_estimators': [50, 100, 1000], 'algorithm': ('SAMME', 'SAMME.R')}
+            URL_Train = list(URL_Train)
+            for everyFeature in fakeFeatureMatrix:
+                URL_Train.append(everyFeature)
+
+            Label_Train = list(Label_Train)
+            for everyFakeLabel in fakeLabels:
+                Label_Train.append(everyFakeLabel)
+
             estimator = AdaBoostClassifier()
             rm = Resampling()
             featureMatrix2,phishingLabel2 = rm.ADASYNOversampling(URL_Train,Label_Train)

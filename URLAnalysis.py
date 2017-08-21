@@ -23,14 +23,14 @@ def separate_url(URL):
     return flag
 
 #
-# with open('EbayThreshold5Non_Phishy.txt','r') as fileptr:
-#     URLs = fileptr.readlines()
-#     f = open('EbayThreshold5_NP_Cleaned.txt','a')
-#     for i in range(len(URLs)):
-#         flag = separate_url(URLs[i])
-#         if flag==0:
-#             #Add this
-#             f.writelines(URLs[i])
+with open('EbayThreshold10Phishy.txt','r') as fileptr:
+    URLs = fileptr.readlines()
+    f = open('EbayThreshold10Phishy_Cleaned.txt','a')
+    for i in range(len(URLs)):
+        flag = separate_url(URLs[i])
+        if flag==0:
+            #Add this
+            f.writelines(URLs[i])
 
 # dataSampleFile = open('randomDataSamples.txt','a')
 # for i in range(0,7000):
