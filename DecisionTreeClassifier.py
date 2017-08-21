@@ -10,16 +10,23 @@ import collections
 class MyDecisionTreeClassifier():
     'Handles Predicting Phishing URL by implementing scikit-learn DecisionTree Classifier'
 
-    def decisionTreeSMOTE(self,featureMatrix,phishingURLLabel):
+    def decisionTreeSMOTE(self,featureMatrix,phishingURLLabel,fakeFeatureMatrix,fakeLabels,technique):
         re = Resampling()
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        predictionResult = open(dir_name+'/DecisionTreeResultsSmote.txt','a+')
+        predictionResult = open(dir_name+'/'+technique+'DecisionTreeResultsSmote.txt','a+')
         predictionResult.truncate()
         accuracy_matrix = []
         try:
             URL_Train, URL_Test, Label_Train, Label_Test = train_test_split(featureMatrix,phishingURLLabel,test_size=0.20,random_state=40)
 
             #----------- Analysis
+            URL_Train = list(URL_Train)
+            for everyFeature in fakeFeatureMatrix:
+                URL_Train.append(everyFeature)
+
+            Label_Train = list(Label_Train)
+            for everyFakeLabel in fakeLabels:
+                Label_Train.append(everyFakeLabel)
 
             print 'Train Test Split:'
             print 'Training Values:'
@@ -65,16 +72,23 @@ class MyDecisionTreeClassifier():
 
     #------------- Decision Tree Classifier with Random Minority Over-sampling with Replacement
 
-    def decisionTreeRMR(self,featureMatrix,phishingURLLabel):
+    def decisionTreeRMR(self,featureMatrix,phishingURLLabel,fakeFeatureMatrix,fakeLabels,technique):
         re = Resampling()
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        predictionResult = open(dir_name+'/DecisionTreeResultsRMR.txt','a+')
+        predictionResult = open(dir_name+'/'+technique+'DecisionTreeResultsRMR.txt','a+')
         predictionResult.truncate()
         accuracy_matrix = []
         try:
             URL_Train, URL_Test, Label_Train, Label_Test = train_test_split(featureMatrix,phishingURLLabel,test_size=0.20,random_state=40)
 
             #----------- Analysis
+            URL_Train = list(URL_Train)
+            for everyFeature in fakeFeatureMatrix:
+                URL_Train.append(everyFeature)
+
+            Label_Train = list(Label_Train)
+            for everyFakeLabel in fakeLabels:
+                Label_Train.append(everyFakeLabel)
 
             print 'Train Test Split:'
             print 'Training Values:'
@@ -120,16 +134,23 @@ class MyDecisionTreeClassifier():
 
     #---------- Decision Tree Classifier with Borderline SMOTE-1 ----------------------------
 
-    def decisionTreebSMOTE1(self,featureMatrix,phishingURLLabel):
+    def decisionTreebSMOTE1(self,featureMatrix,phishingURLLabel,fakeFeatureMatrix,fakeLabels,technique):
         re = Resampling()
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        predictionResult = open(dir_name+'/DecisionTreeResultsSmoteB1.txt','a+')
+        predictionResult = open(dir_name+'/'+technique+'DecisionTreeResultsSmoteB1.txt','a+')
         predictionResult.truncate()
         accuracy_matrix = []
         try:
             URL_Train, URL_Test, Label_Train, Label_Test = train_test_split(featureMatrix,phishingURLLabel,test_size=0.20,random_state=40)
 
             #----------- Analysis
+            URL_Train = list(URL_Train)
+            for everyFeature in fakeFeatureMatrix:
+                URL_Train.append(everyFeature)
+
+            Label_Train = list(Label_Train)
+            for everyFakeLabel in fakeLabels:
+                Label_Train.append(everyFakeLabel)
 
             print 'Train Test Split:'
             print 'Training Values:'
@@ -175,17 +196,23 @@ class MyDecisionTreeClassifier():
 
     # ------------------------- Decision Tree Classifier with Borderline SMOTE 2 ---------------------------
 
-    def decisionTreebSMOTE2(self,featureMatrix,phishingURLLabel):
+    def decisionTreebSMOTE2(self,featureMatrix,phishingURLLabel,fakeFeatureMatrix,fakeLabels,technique):
         re = Resampling()
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        predictionResult = open(dir_name+'/DecisionTreeResultsSmoteb2.txt','a+')
+        predictionResult = open(dir_name+'/'+technique+'DecisionTreeResultsSmoteb2.txt','a+')
         predictionResult.truncate()
         accuracy_matrix = []
         try:
             URL_Train, URL_Test, Label_Train, Label_Test = train_test_split(featureMatrix,phishingURLLabel,test_size=0.20,random_state=40)
 
             #----------- Analysis
+            URL_Train = list(URL_Train)
+            for everyFeature in fakeFeatureMatrix:
+                URL_Train.append(everyFeature)
 
+            Label_Train = list(Label_Train)
+            for everyFakeLabel in fakeLabels:
+                Label_Train.append(everyFakeLabel)
             print 'Train Test Split:'
             print 'Training Values:'
             print 'Total:' + str(len(Label_Train))
@@ -230,17 +257,23 @@ class MyDecisionTreeClassifier():
 
     # Decision Tree Classifier for Support Vector Machine SMOTE Technique
 
-    def decisionTreeSVM_SMOTE(self,featureMatrix,phishingURLLabel):
+    def decisionTreeSVM_SMOTE(self,featureMatrix,phishingURLLabel,fakeFeatureMatrix,fakeLabels,technique):
         re = Resampling()
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        predictionResult = open(dir_name+'/DecisionTreeResultsSVMSmote.txt','a+')
+        predictionResult = open(dir_name+'/'+technique+'DecisionTreeResultsSVMSmote.txt','a+')
         predictionResult.truncate()
         accuracy_matrix = []
         try:
             URL_Train, URL_Test, Label_Train, Label_Test = train_test_split(featureMatrix,phishingURLLabel,test_size=0.20,random_state=40)
 
             #----------- Analysis
+            URL_Train = list(URL_Train)
+            for everyFeature in fakeFeatureMatrix:
+                URL_Train.append(everyFeature)
 
+            Label_Train = list(Label_Train)
+            for everyFakeLabel in fakeLabels:
+                Label_Train.append(everyFakeLabel)
             print 'Train Test Split:'
             print 'Training Values:'
             print 'Total:' + str(len(Label_Train))
@@ -285,16 +318,23 @@ class MyDecisionTreeClassifier():
 
     # --------------- Decision Tree Classifier with ADASYN (Adaptive Synthetic Sampling Approach for imbalanced Learning---
 
-    def decisionTreeADASYN(self,featureMatrix,phishingURLLabel):
+    def decisionTreeADASYN(self,featureMatrix,phishingURLLabel,fakeFeatureMatrix,fakeLabels,technique):
         re = Resampling()
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        predictionResult = open(dir_name+'/DecisionTreeResultsADASYN.txt','a+')
+        predictionResult = open(dir_name+'/'+technique+'DecisionTreeResultsADASYN.txt','a+')
         predictionResult.truncate()
         accuracy_matrix = []
         try:
             URL_Train, URL_Test, Label_Train, Label_Test = train_test_split(featureMatrix,phishingURLLabel,test_size=0.20,random_state=40)
 
             #----------- Analysis
+            URL_Train = list(URL_Train)
+            for everyFeature in fakeFeatureMatrix:
+                URL_Train.append(everyFeature)
+
+            Label_Train = list(Label_Train)
+            for everyFakeLabel in fakeLabels:
+                Label_Train.append(everyFakeLabel)
 
             print 'Train Test Split:'
             print 'Training Values:'
@@ -340,16 +380,31 @@ class MyDecisionTreeClassifier():
 
     # Decision Tree Classifier without any Oversampling Technique
 
-    def decisionTreeNoOversampling(self,featureMatrix,phishingURLLabel):
+    def decisionTreeNoOversampling(self,featureMatrix,phishingURLLabel,fakeFeatureMatrix,fakeLabels,technique):
         re = Resampling()
         dir_name = os.path.dirname(os.path.realpath(__file__))
-        predictionResult = open(dir_name+'/DecisionTreeResultsNoOversampling.txt','a+')
+        predictionResult = open(dir_name+'/'+technique+'DecisionTreeResultsNoOversampling.txt','a+')
         predictionResult.truncate()
         accuracy_matrix = []
         try:
-            URL_Train, URL_Test, Label_Train, Label_Test = train_test_split(featureMatrix,phishingURLLabel,test_size=0.20,random_state=40)
-
+            URL_Train, URL_Test, Label_Train, Label_Test = train_test_split(featureMatrix,phishingURLLabel,test_size=0.20)
+            print 'Originally length of URL_Train is:'
+            print len(URL_Train)
             #----------- Analysis
+
+            URL_Train = list(URL_Train)
+            for everyFeature in fakeFeatureMatrix:
+                URL_Train.append(everyFeature)
+
+            Label_Train = list(Label_Train)
+            for everyFakeLabel in fakeLabels:
+                Label_Train.append(everyFakeLabel)
+
+            URL_Train = numpy.array(URL_Train,dtype='double')
+            Label_Train = numpy.array(Label_Train,dtype='double')
+            print 'Append Fake Features to Training Set....New length of Training is:'
+            print len(URL_Train)
+            print len(Label_Train)
 
             print 'Train Test Split:'
             print 'Training Values:'
@@ -363,14 +418,9 @@ class MyDecisionTreeClassifier():
             print 'Non Phishy:' + str(list(Label_Test).count(0))
             parameters_DecisionTree = {'criterion': ('gini', 'entropy'), 'splitter': ('best', 'random')}
             estimator = DecisionTreeClassifier()
-            # totalSamples = len(Label_Train)
-            # positiveCount = int(Label_Train.count('1'))       #should be 65% of total
-            # predictionResult.write("Percentage of positive samples in training phase: %.2f " % (positiveCount/float(totalSamples)))
             clf = GridSearchCV(estimator, parameters_DecisionTree, n_jobs=1)
             clf.fit(URL_Train,Label_Train)
             result = clf.predict(URL_Test)
-            #print "Type of REsult is:"
-            #print type(result)
             predictionResult.write(str(result))
             predictionResult.flush()
             predictionResult.write("\nThe 1's are:" + str(collections.Counter(result)))

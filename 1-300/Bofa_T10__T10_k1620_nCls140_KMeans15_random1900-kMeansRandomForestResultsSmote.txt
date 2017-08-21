@@ -1,0 +1,3 @@
+[ 0.  0.  0. ...,  1.  1.  0.]
+The 1's are:Counter({0.0: 1917, 1.0: 887})
+The f1_score is:0.622383465549Random Forest Classification with SMOTE Completed with Avg. Score: 0.622383465549
