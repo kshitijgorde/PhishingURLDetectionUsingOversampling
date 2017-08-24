@@ -1,0 +1,3 @@
+[ 1.  1.  1. ...,  0.  1.  1.]
+The 1's are:Counter({1.0: 4218, 0.0: 1235})
+The f1_score is:0.581844078263Ada Boost Classification without Oversampling Completed with Avg. Score: 0.581844078263

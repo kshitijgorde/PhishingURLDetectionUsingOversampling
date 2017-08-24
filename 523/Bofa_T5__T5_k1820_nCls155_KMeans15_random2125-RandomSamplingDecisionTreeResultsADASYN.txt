@@ -1,0 +1,3 @@
+[ 0.  1.  0. ...,  1.  0.  0.]
+The 1's are:Counter({1.0: 1650, 0.0: 1154})
+The f1_score is:0.591607108042Decision Tree Classification ADASYN Completed with Avg. Score: 0.591607108042

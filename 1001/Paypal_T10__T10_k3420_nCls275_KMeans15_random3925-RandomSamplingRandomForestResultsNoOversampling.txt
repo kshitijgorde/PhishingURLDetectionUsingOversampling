@@ -1,0 +1,3 @@
+[ 0.  1.  0. ...,  0.  1.  1.]
+The 1's are:Counter({0.0: 3230, 1.0: 2223})
+The f1_score is:0.618889851091Random Forest Classification without Oversampling Completed with Avg. Score: 0.618889851091

@@ -1,0 +1,3 @@
+[ 1.  1.  1. ...,  1.  0.  1.]
+The 1's are:Counter({1.0: 1789, 0.0: 1015})
+The f1_score is:0.565977471022Ada Boost Classification with SVM Smote Completed with Avg. Score: 0.565977471022

@@ -1,0 +1,3 @@
+[ 1.  1.  1. ...,  1.  0.  1.]
+The 1's are:Counter({0.0: 3077, 1.0: 2376})
+The f1_score is:0.593001060445Ada Boost Classification with ADASYN Completed with Avg. Score: 0.593001060445

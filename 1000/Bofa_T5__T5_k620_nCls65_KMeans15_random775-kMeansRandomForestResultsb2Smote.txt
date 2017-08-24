@@ -1,0 +1,3 @@
+[ 0.  1.  0. ...,  0.  1.  1.]
+The 1's are:Counter({1.0: 1742, 0.0: 1062})
+The f1_score is:0.593670299096Random Forest Classification with Borderline-2 SMOTE Completed with Avg. Score: 0.593670299096

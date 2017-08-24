@@ -1,0 +1,3 @@
+[ 0.  0.  1. ...,  1.  1.  1.]
+The 1's are:Counter({1.0: 3559, 0.0: 1894})
+The f1_score is:0.601522357752Decision Tree Classification without Oversampling Completed with Avg. Score: 0.601522357752

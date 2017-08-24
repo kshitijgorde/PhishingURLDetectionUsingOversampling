@@ -1,0 +1,3 @@
+[ 1.  0.  0. ...,  1.  1.  0.]
+The 1's are:Counter({1.0: 3417, 0.0: 2036})
+The f1_score is:0.522550394605Ada Boost Classification with Borderline-2 SMOTE Completed with Avg. Score: 0.522550394605

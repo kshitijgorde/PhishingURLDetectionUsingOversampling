@@ -1,0 +1,3 @@
+[ 1.  0.  1. ...,  0.  1.  1.]
+The 1's are:Counter({1.0: 3744, 0.0: 1709})
+The f1_score is:0.617447458047Random Forest Classification with SVM Smote Oversampling Completed with Avg. Score: 0.617447458047

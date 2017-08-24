@@ -1,0 +1,3 @@
+[ 1.  1.  1. ...,  1.  1.  1.]
+The 1's are:Counter({0.0: 3505, 1.0: 1948})
+The f1_score is:0.62049885073Decision Tree Classification SVM Smote Completed with Avg. Score: 0.62049885073

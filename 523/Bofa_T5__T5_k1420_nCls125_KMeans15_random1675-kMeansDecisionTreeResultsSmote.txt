@@ -1,0 +1,3 @@
+[ 0.  1.  1. ...,  1.  1.  0.]
+The 1's are:Counter({1.0: 1818, 0.0: 986})
+The f1_score is:0.60688261429Decision Tree with SMOTE Classification Completed with Avg. Score: 0.60688261429

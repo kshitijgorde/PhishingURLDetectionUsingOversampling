@@ -1,0 +1,3 @@
+[ 1.  0.  0. ...,  1.  1.  1.]
+The 1's are:Counter({0.0: 3520, 1.0: 1933})
+The f1_score is:0.620438343027Decision Tree with RMR Classification Completed with Avg. Score: 0.620438343027

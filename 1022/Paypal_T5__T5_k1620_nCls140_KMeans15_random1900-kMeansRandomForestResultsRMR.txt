@@ -1,0 +1,3 @@
+[ 1.  1.  0. ...,  0.  1.  1.]
+The 1's are:Counter({1.0: 3925, 0.0: 1528})
+The f1_score is:0.620864851506Random Forest Classification with Random Minority Oversampling Completed with Avg. Score: 0.620864851506

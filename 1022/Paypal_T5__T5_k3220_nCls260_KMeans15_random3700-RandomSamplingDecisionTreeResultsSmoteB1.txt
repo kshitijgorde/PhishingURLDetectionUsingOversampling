@@ -1,0 +1,3 @@
+[ 1.  1.  1. ...,  1.  1.  1.]
+The 1's are:Counter({1.0: 3179, 0.0: 2274})
+The f1_score is:0.600305390705Decision Tree Borderline-1 Smote Classification Completed with Avg. Score: 0.600305390705
